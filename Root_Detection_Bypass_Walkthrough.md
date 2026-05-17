@@ -39,15 +39,18 @@ Affichage coloré avec cartes, icônes et badge global (✅ PROPRE / ⚠️ ROOT
 ## État initial (sans bypass)
 
 ```
-⚠️ ROOT DÉTECTÉ — 4/4 checks
+ ROOT DÉTECTÉ — 4/4 checks
 🔴 Build.TAGS: test-keys
 🔴 File.exists: /system/bin/su, /system/xbin/su, /sbin/su
 🔴 Runtime.exec: su trouvé via which
 🔴 RootBeer.isRooted: Root détecté
 ```
 
-> 📸 **Capture 1** — App affichant 4/4 ROOT DÉTECTÉ
-> `[insérer screenshot ici]`
+<img width="215" height="429" alt="image" src="https://github.com/user-attachments/assets/38109c63-4987-457c-8ccd-cc79b5faf35e" />
+
+---
+
+<img width="226" height="434" alt="image" src="https://github.com/user-attachments/assets/5b3ac4ea-8266-4370-b3a8-2034131cd6f4" />
 
 ---
 
@@ -65,21 +68,20 @@ Hooks Java ciblés :
 frida -U -f com.example.rootdetectiontest -l bypass_root_basic.js
 ```
 
-> 📸 **Capture 2** — Terminal Frida avec hooks confirmés + app 4/4 ✅
-> `[insérer screenshot ici]`
+---
 
-### Découverte clé — Runtime.exec
+<img width="1600" height="780" alt="image" src="https://github.com/user-attachments/assets/2d4c1deb-e591-48b4-a77c-79615f5c7dc5" />
 
-`echo` retourne exit code 0 → app croit que `su` existe.
-`false` retourne exit code 1 → app croit que `su` est introuvable.
+---
 
-```javascript
-// ❌ Mauvais
-return this.exec('echo');
+<img width="1600" height="849" alt="image" src="https://github.com/user-attachments/assets/520bd042-b484-4889-827b-63db88a0f5ce" />
 
-// ✅ Correct
-return this.exec('false');
-```
+---
+
+<img width="1600" height="844" alt="image" src="https://github.com/user-attachments/assets/d2ce4a91-5d8a-4763-87a8-03badb3c6abd" />
+
+---
+
 
 ### Script bypass_native.js (checks natifs libc)
 
@@ -98,8 +100,10 @@ frida -U -f com.example.rootdetectiontest -l bypass_root_basic.js -l bypass_nati
 [*] stat non interceptable sur cet appareil
 ```
 
-> 📸 **Capture 3** — Terminal bypass combiné Java + Natif
-> `[insérer screenshot ici]`
+---
+
+---
+---
 
 ### frida-trace (diagnostic natif)
 
@@ -109,21 +113,12 @@ frida-trace -U -f com.example.rootdetectiontest -i open -i access -i stat -i ope
 
 Permet de voir tous les appels natifs effectués par l'app au démarrage.
 
-> 📸 **Capture 4** — frida-trace montrant les appels open/access/stat
-> `[insérer screenshot ici]`
+
+<img width="1600" height="807" alt="image" src="https://github.com/user-attachments/assets/851ca949-932e-4abd-b00e-e27692880093" />
 
 ---
 
 ## Méthode 2 — Objection
-
-### Commande simple
-
-```bash
-objection -g com.example.rootdetectiontest explore --startup-command "android root disable"
-```
-
-Résultat : **3/4** — `android root disable` ne couvre pas `Runtime.exec`.
-
 ### Bypass complet (2 commandes)
 
 ```bash
@@ -141,8 +136,12 @@ Résultat : **4/4 ✅**
 | `android root disable` | Build.TAGS + File.exists + RootBeer |
 | `android hooking set return_value java.lang.Runtime.exec false` | Runtime.exec |
 
-> 📸 **Capture 5** — Console Objection + app ✅ APPAREIL PROPRE
-> `[insérer screenshot ici]`
+
+<img width="1600" height="839" alt="image" src="https://github.com/user-attachments/assets/4ad7a176-cf96-478e-b68c-09a7a3e93d28" />
+
+---
+
+<img width="1600" height="805" alt="image" src="https://github.com/user-attachments/assets/b1f3e226-6819-4517-8cb9-f560e3d5479d" />
 
 ---
 
@@ -164,23 +163,31 @@ use root_detection/rootbeer_detection_bypass_no_obfuscation
 run -f com.example.rootdetectiontest
 ```
 
-> ⚠️ `run` seul ne fonctionne pas — il faut `run -f <package>`
 
 | Module Medusa | Ce qu'il bypasse |
 |---------------|-----------------|
 | `universal_root_detection_bypass` | Build.TAGS + File.exists + Runtime.exec |
 | `rootbeer_detection_bypass_no_obfuscation` | RootBeer.isRooted() |
 
-> 📸 **Capture 6** — Console Medusa + app 4/4 ✅
-> `[insérer screenshot ici]`
 
 ---
 
+<img width="1600" height="823" alt="image" src="https://github.com/user-attachments/assets/35c99654-5595-4969-8fbd-06ae04c11abc" />
+
+---
+
+<img width="1242" height="356" alt="image" src="https://github.com/user-attachments/assets/2264003a-702f-48cd-9d99-7aee091d8be6" />
+
+---
+
+<img width="1600" height="852" alt="image" src="https://github.com/user-attachments/assets/928deb99-64f9-483c-8de6-46b1e14efb96" />
+
+---
 ## Méthode 4 — Magisk
 
 | Fonctionnalité | Status sur Genymotion |
 |---------------|----------------------|
-| Magisk App v30.7 | ✅ installé |
+| Magisk App v30.7 |  installé |
 | Zygisk | ❌ non supporté |
 | DenyList | ❌ nécessite Zygisk |
 | Modules | ❌ nécessite boot patché |
@@ -190,17 +197,6 @@ run -f com.example.rootdetectiontest
 > 📸 **Capture 7** — Interface Magisk sur Genymotion
 > `[insérer screenshot ici]`
 
----
-
-## Comparaison des méthodes
-
-| Check | Frida | Objection | Medusa |
-|-------|-------|-----------|--------|
-| Build.TAGS | ✅ | ✅ | ✅ |
-| File.exists | ✅ | ✅ | ✅ |
-| Runtime.exec | ✅ | ✅ (hook manuel) | ✅ |
-| RootBeer | ✅ | ✅ | ✅ (module dédié) |
-| **Total** | **4/4** | **4/4** | **4/4** |
 
 ---
 
@@ -213,3 +209,7 @@ run -f com.example.rootdetectiontest
 - [x] Bypass complet avec Objection (android root disable + hooking)
 - [x] Bypass complet avec Medusa (2 modules combinés)
 - [x] Magisk inspecté (limites émulateur documentées)
+
+## Auteur
+**H-oubane**
+
