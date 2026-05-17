@@ -50,7 +50,7 @@ Affichage coloré avec cartes, icônes et badge global (✅ PROPRE / ⚠️ ROOT
 
 ---
 
-<img width="226" height="434" alt="image" src="https://github.com/user-attachments/assets/5b3ac4ea-8266-4370-b3a8-2034131cd6f4" />
+<img width="1600" height="838" alt="image" src="https://github.com/user-attachments/assets/96d8b1e1-ec09-4493-95a8-ba4a4b266ac3" />
 
 ---
 
@@ -102,7 +102,16 @@ frida -U -f com.example.rootdetectiontest -l bypass_root_basic.js -l bypass_nati
 
 ---
 
+<img width="1600" height="805" alt="image" src="https://github.com/user-attachments/assets/33a4bbc9-cb9e-4501-9e5e-edf005b6cef8" />
+
 ---
+
+<img width="1600" height="800" alt="image" src="https://github.com/user-attachments/assets/11956651-5e9e-4d8f-ab37-dd04067c2fb0" />
+
+---
+
+<img width="1600" height="839" alt="image" src="https://github.com/user-attachments/assets/9a20099d-784f-4c7d-9561-1f6bb4d4b70b" />
+
 ---
 
 ### frida-trace (diagnostic natif)
@@ -194,8 +203,9 @@ run -f com.example.rootdetectiontest
 
 > Magisk nécessite un appareil physique rooté pour fonctionner pleinement. Sur émulateur, Frida/Objection/Medusa sont plus adaptés.
 
-> 📸 **Capture 7** — Interface Magisk sur Genymotion
-> `[insérer screenshot ici]`
+
+<img width="497" height="1012" alt="image" src="https://github.com/user-attachments/assets/a915bf90-4edd-42f4-9149-e905ef7c989a" />
+
 
 
 ---
